@@ -27,22 +27,6 @@ songItems.forEach((element, i)=>{
     element.getElementsByClassName("songName")[0].innerText = songs[i].songName; 
 })
  
-
-// Handle play/pause click
-masterPlay.addEventListener('click', ()=>{
-    if(audioElement.paused || audioElement.currentTime<=0){
-        audioElement.play();
-        masterPlay.classList.remove('facircle-play');
-        masterPlay.classList.add('fa-circle-pause');
-        gif.style.opacity = 1;
-    }
-    else{
-        audioElement.pause();
-        masterPlay.classList.remove('fa-circle-pause');
-        masterPlay.classList.add('fa-circle-play');
-        gif.style.opacity = 0;
-    }
-})
 // Listen to Events
 audioElement.addEventListener('timeupdate', ()=>{ 
     // Update Seekbar
@@ -60,6 +44,23 @@ const makeAllPlays = ()=>{
         element.classList.add('fa-circle-play');
     })
 }
+
+// Handle play/pause click
+masterPlay.addEventListener('click', ()=>{
+    if(audioElement.paused || audioElement.currentTime<=0){
+        audioElement.play();
+        masterPlay.classList.remove('facircle-play');
+        masterPlay.classList.add('fa-circle-pause');
+        gif.style.opacity = 1;
+    }
+    else{
+        audioElement.pause();
+        makeAllPlays();
+        masterPlay.classList.remove('fa-circle-pause');
+        masterPlay.classList.add('fa-circle-play');
+        gif.style.opacity = 0;
+    }
+})
 
 Array.from(document.getElementsByClassName('songItemPlay')).forEach((element)=>{
     element.addEventListener('click', (e)=>{ 
